@@ -1,0 +1,87 @@
+﻿<Page x:Class="AviaBooking.PaymentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AviaBooking" xmlns:viewmodels="clr-namespace:AviaBooking.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="PaymentPage">
+    <Page.DataContext>
+        <viewmodels:PaymentViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Главная часть -->
+            <RowDefinition Height="100"/>
+            <!-- Футер -->
+        </Grid.RowDefinitions>
+        <!-- Главная часть страницы -->
+ 
+        <TextBlock Text="Рейс оформлен!" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Grid.Row="0" Visibility="{Binding SuccessPaymentVisibility}"
+                   FontSize="30" FontFamily="Segoe Ui Semibold"/>
+
+        <Grid Grid.Row="0" Background="White" Visibility="{Binding PassengersListVisibility}">
+            <ItemsControl ItemsSource="{Binding Passengers}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="25" CornerRadius="5" 
+                                    BorderThickness="2" BorderBrush="Gray" Padding="15">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Row="0" Grid.Column="0" 
+                                Width="200" VerticalAlignment="Center" 
+                                HorizontalAlignment="Center" Orientation="Vertical">
+                                        <Label Content="Имя (обязательно)"/>
+                                        <TextBox Text="{Binding FirstName}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0" Grid.Column="1" 
+                                Width="200" VerticalAlignment="Center" 
+                                HorizontalAlignment="Center" Orientation="Vertical">
+                                        <Label Content="Фамилия (обязательно)"/>
+                                        <TextBox Text="{Binding LastName}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="0" Grid.Column="2" 
+                                Width="200" VerticalAlignment="Center" 
+                                HorizontalAlignment="Center" Orientation="Vertical">
+                                        <Label Content="Дата рождения (обязательно)"/>
+                                        <DatePicker SelectedDate="{Binding BirthDate}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="0" 
+                                Width="200" VerticalAlignment="Center" 
+                                HorizontalAlignment="Center" Orientation="Vertical">
+                                        <Label Content="Пол (обязательно)"/>
+                                    <ComboBox SelectedValuePath="Content" SelectedValue="{Binding Gender}">
+                                        <ComboBoxItem Content="М" />
+                                        <ComboBoxItem Content="Ж" />
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.Column="1" 
+                                            Width="200" VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center" Orientation="Vertical">
+                                </StackPanel>
+                            </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+            <Button Content="Submit" Height="25" Width="100" VerticalAlignment="Bottom" Command="{Binding SubmitPayment}"/>
+        </Grid>
+
+        <!-- Футер страницы -->
+        <local:Footer Grid.Row="1"/>
+
+    </Grid>
+</Page>

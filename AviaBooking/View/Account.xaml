@@ -1,0 +1,552 @@
+﻿<Page x:Class="AviaBooking.View.Account"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AviaBooking" xmlns:viewmodels="clr-namespace:AviaBooking.ViewModels"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Account">
+    <Page.DataContext>
+        <viewmodels:AccountViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Главная часть -->
+            <RowDefinition Height="100"/>
+            <!-- Футер -->
+        </Grid.RowDefinitions>
+        <!-- Главная часть страницы -->
+        <Grid Grid.Row="0" Background="White">
+            <!--Админка-->
+            <Button Content="Панель управления" Command="{Binding AdminPanelButton}"
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Top" Height="25"
+                    Margin="40" Visibility="{Binding AdminButtonVisibility}"/>
+            <Border Background="White" 
+                Width="400" BorderThickness="1" BorderBrush="Gray"
+                CornerRadius="5" Margin="0,15"
+                Visibility="{Binding LoginPageVisibility}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Height="50" HorizontalAlignment="Stretch">
+                        <Button Content="Вход" Width="200" Command="{Binding ChooseLoginButton}"/>
+                        <Button Content="Регистрация" Width="200" Command="{Binding ChooseRegistrationButton}"/>
+                    </StackPanel>
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Логин:" Grid.Row="0" Margin="5"/>
+                        <TextBox x:Name="NicknameTextBox" Grid.Row="1" Margin="5" Text="{Binding LogNickname}"/>
+
+                        <TextBlock Text="Имя:" Grid.Row="2" Margin="5" Visibility="{Binding RegButtonVisibility}"/>
+                        <TextBox x:Name="NameTextBox" Grid.Row="3" Margin="5" Text="{Binding LogName}" Visibility="{Binding RegButtonVisibility}"/>
+
+                        <TextBlock Text="Фамилия:" Grid.Row="4" Margin="5" Visibility="{Binding RegButtonVisibility}"/>
+                        <TextBox x:Name="SurnameTextBox" Grid.Row="5" Margin="5" Text="{Binding LogSurname}" Visibility="{Binding RegButtonVisibility}"/>
+
+                        <TextBlock Text="Электронная почта:" Grid.Row="6" Margin="5" Visibility="{Binding RegButtonVisibility}"/>
+                        <TextBox x:Name="EmailTextBox" Grid.Row="7" Margin="5" Text="{Binding LogEmail}" Visibility="{Binding RegButtonVisibility}"/>
+
+                        <TextBlock Text="Пароль:" Grid.Row="8" Margin="5"/>
+                        <PasswordBox x:Name="PasswordBox" Grid.Row="9" Margin="5"/>
+
+                        <Button Content="Войти" Grid.Row="10" Margin="5" 
+                                Command="{Binding LogButton}" 
+                                CommandParameter="{Binding ElementName=PasswordBox}"
+                                Visibility="{Binding LogButtonVisibility}"/>
+
+                        <Separator Grid.Row="11"/>
+
+                        <Button Content="Зарегистрироваться" 
+                                Grid.Row="12" Margin="5" 
+                                Command="{Binding RegButton}"
+                                CommandParameter="{Binding ElementName=PasswordBox}"
+                                Visibility="{Binding RegButtonVisibility}"/>
+                    </Grid>
+
+                </Grid>
+        </Border>
+            
+        <Grid Visibility="{Binding AccountPageVisibility}" Margin="0,0,0,50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="500"/>
+            </Grid.RowDefinitions>
+            <Label Content="Личный кабинет" VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                Margin="150,45,0,0" FontSize="25"
+                FontFamily="Segoe UI"
+                FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,125,0,0" 
+                    VerticalAlignment="Top" Height="40">
+                <Border CornerRadius="5,0,0,5" BorderThickness="2,2,0,2" 
+                    BorderBrush="Gray">
+                    <Button Content="Текущие билеты" FontSize="18"
+                    Padding="50, 5" Background="Transparent"
+                    Command="{Binding CurrentTicketsButton}"/>
+                </Border>
+                <Border BorderThickness="2,2,0,2" 
+                    BorderBrush="Gray">
+                    <Button Content="Личные данные" FontSize="18"
+                    Padding="50, 5" Background="Transparent"
+                    Command="{Binding PersonalDataButton}"/>
+                </Border>
+                <Border BorderThickness="2,2,0,2" 
+                    BorderBrush="Gray">
+                    <Button Content="Сменить данные" FontSize="18"
+                    Padding="50, 5" Background="Transparent"
+                    Command="{Binding ChangePersonalDataButton}"/>
+                </Border>
+                <Border BorderThickness="2,2,0,2" 
+                    BorderBrush="Gray">
+                    <Button Content="История заказов" FontSize="18"
+                    Padding="50, 5" Background="Transparent"
+                    Command="{Binding HistoryButton}"/>
+                </Border>
+                    <Border CornerRadius="0,5,5,0" BorderThickness="2" 
+                    BorderBrush="Gray">
+                        <Button Content="Выход" FontSize="18"
+                    Padding="50, 5" Background="Transparent"
+                    Command="{Binding ExitButton}"
+                    CommandParameter="{Binding ElementName=PasswordBox}"/>
+                    </Border>
+                </StackPanel>
+
+            <!--Текущие билеты-->
+            <Grid Grid.Row="1" Visibility="{Binding CurrentTicketsVisibility}" HorizontalAlignment="Center">
+                    <ScrollViewer>
+                        <ListView ItemsSource="{Binding Flights}" x:Name="lView" SelectedItem="{Binding SelectedFlight}" Margin="0,35,0,0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="IsSelected" Value="True" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5" CornerRadius="5">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Departure:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Grid.Column="0" Text="{Binding Departure}" Width="75" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Destination:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Grid.Column="1" Text="{Binding Destination}" Width="75" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Departure Date:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Grid.Column="2" Text="{Binding DepartureDate, StringFormat='{}{0:dd.MM.yyyy}'}" Width="75" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Arrival Date:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Grid.Column="3" Text="{Binding ArrivalDate, StringFormat='{}{0:dd.MM.yyyy}'}" Width="75" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Seats Available:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" TextWrapping="Wrap" Grid.Column="4" Text="{Binding AvailableSeats}" Width="75" Margin="10,5"/>
+                                            <Button Grid.Row="1" Grid.Column="5" Content="Вернуть билеты" Command="{Binding DataContext.ReturnFlightTickets, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}" CommandParameter="{Binding ElementName=lView}"/>
+
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+            </Grid>
+
+            <!--Личная информация-->
+            <Grid Grid.Row="1" Visibility="{Binding PersonalDataVisibility}">
+
+                    <Border CornerRadius="5" BorderBrush="Gray"
+                            BorderThickness="2" Width="500"
+                            HorizontalAlignment="Center">
+                        <StackPanel Orientation="Vertical">
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Никнейм:" Margin="5"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding LogNickname}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Имя:" Margin="5"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding LogName}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Фамилия:" Margin="5"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding LogSurname}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Почта:" Margin="5"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding LogEmail}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Пароль:" Margin="5"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding LogSecuredPassword}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Button Content="Показать пароль" Command="{Binding ShowPasswordButton}" Margin="5"/>
+                        </StackPanel>
+
+
+                    </Border>
+
+                </Grid>
+
+            <Grid Grid.Row="1" Visibility="{Binding ChangePersonalDataVisibility}">
+                    <Border CornerRadius="5" BorderBrush="Gray"
+                            BorderThickness="2" Width="500"
+                            HorizontalAlignment="Center">
+                        <StackPanel Orientation="Vertical">
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Никнейм:" Margin="5"/>
+                                    <TextBox Grid.Column="1" Text="{Binding TempNickname}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Имя:" Margin="5"/>
+                                    <TextBox Grid.Column="1" Text="{Binding TempName}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Фамилия:" Margin="5"/>
+                                    <TextBox Grid.Column="1" Text="{Binding TempSurname}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Почта:" Margin="5"/>
+                                    <TextBox Grid.Column="1" Text="{Binding TempEmail}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Border BorderThickness="1 0 1 1" BorderBrush="Black" Margin="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="75"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Пароль:" Margin="5"/>
+                                    <TextBox Grid.Column="1" Text="{Binding TempPassword}" Margin="5"/>
+                                </Grid>
+                            </Border>
+                            <Button Content="Сохранить изменения" Command="{Binding ChangeAccountDataButton}" Margin="5"/>
+                        </StackPanel>
+
+
+                    </Border>
+                </Grid>
+
+            <Grid Grid.Row="1" Visibility="{Binding HistoryVisibility}" HorizontalAlignment="Center">
+                    <ScrollViewer Visibility="{Binding HistoryTicketsVisibility}">
+                        <ListView ItemsSource="{Binding Flights}" SelectedItem="{Binding SelectedFlight}" Margin="0,35,0,0">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="IsSelected" Value="True" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5" CornerRadius="5">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Departure:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Departure}" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Destination:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Destination}" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Departure Date:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding DepartureDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="3" Text="Arrival Date:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding ArrivalDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" Margin="10,5"/>
+                                            <TextBlock Grid.Row="0" Grid.Column="4" Text="Seats Available:" FontWeight="Bold"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding AvailableSeats}" Margin="10,5"/>
+
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
+                </Grid>
+
+            <TextBlock Grid.Row="1" Text="Список билетов пуст!" HorizontalAlignment="Center"
+                           VerticalAlignment="Top" FontFamily="Segoe UI"
+                           FontSize="30" FontWeight="Bold"
+                           Margin="0,100,0,0"
+                           Visibility="{Binding TicketsNotFoundVisibility}"/>
+
+            <Grid Grid.Row="1" Visibility="{Binding AdminPanelVisibility}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Height="40"
+                                VerticalAlignment="Center">
+                        <Button Margin="5" Content="Управление рейсами" Command="{Binding FlightsMenuButton}"/>
+                        <Button Margin="5" Content="Управление пользователями" Command="{Binding ClientsMenuButton}"/>
+                        <Button Margin="5" Content="Просмотр пассажиров на рейс" Command="{Binding PassengersMenuButton}"/>
+                        <Button Margin="5" Content="Заполнить базу данных" Command="{Binding FillDataBase}"/>
+                    </StackPanel>
+                    <Grid Grid.Row="1" Visibility="{Binding FlightsMenuVisibility}">
+                        <ScrollViewer Width="800" HorizontalAlignment="Left">
+                            <ListView ItemsSource="{Binding Flights}" x:Name="LView" SelectedItem="{Binding SelectedDeleteFlight}" Margin="0,35,0,0">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListViewItem}">
+                                        <Setter Property="Background" Value="Transparent" />
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="IsSelected" Value="True" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="Gray" BorderThickness="1" Margin="5" Padding="5" CornerRadius="5">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Departure:" FontWeight="Bold"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Departure}" Margin="10,5"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Destination:" FontWeight="Bold"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Destination}" Margin="10,5"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="2" Text="Departure Date:" FontWeight="Bold"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding DepartureDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" Margin="10,5"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="3" Text="Arrival Date:" FontWeight="Bold"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding ArrivalDate, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" Margin="10,5"/>
+                                                <TextBlock Grid.Row="0" Grid.Column="4" Text="Seats Available:" FontWeight="Bold"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding AvailableSeats}" Margin="10,5"/>
+                                                <Button Grid.Row="1" Grid.Column="5" Content="Удалить рейс" Command="{Binding DataContext.DeleteFlightCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}" CommandParameter="{Binding ElementName=LView}"/>
+
+
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </ScrollViewer>
+                        <Grid HorizontalAlignment="Right" Width="350">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Airline Id:" />
+                            <TextBox Text="{Binding AirlineId}" Grid.Row="0" Grid.Column="1" Name="AirlineIdTextBox" />
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Departure:" />
+                            <TextBox Text="{Binding Departure}" Grid.Row="1" Grid.Column="1" Name="DepartureTextBox" />
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Destination:" />
+                            <TextBox Text="{Binding Destination}" Grid.Row="2" Grid.Column="1" Name="DestinationTextBox" />
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Departure Date:" />
+                            <DatePicker Text="{Binding DepartureDate}" Grid.Row="3" Grid.Column="1" Name="DepartureDatePicker" />
+
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Arrival Date:" />
+                            <DatePicker Text="{Binding ArrivalDate}" Grid.Row="4" Grid.Column="1" Name="ArrivalDatePicker" />
+
+                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Available Seats:" />
+                            <TextBox Text="{Binding AvailableSeats}" Grid.Row="5" Grid.Column="1" Name="AvailableSeatsTextBox" />
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Class:" />
+                            <ComboBox Grid.Row="6" Grid.Column="1" Name="ClassComboBox" SelectedItem="{Binding Class}">
+                                <ComboBoxItem Content="Economy" />
+                                <ComboBoxItem Content="Comfort" />
+                                <ComboBoxItem Content="Business" />
+                                <ComboBoxItem Content="First Class" />
+                            </ComboBox>
+
+                            <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Content="Save" Command="{Binding AddFlightButton}" />
+
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="1" Visibility="{Binding ClientsMenuVisibility}">
+                        <ListView ItemsSource="{Binding Clients}" SelectedItem="{Binding Client}" x:Name="ClientsListView">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="IsSelected" Value="{Binding IsMouseOver, RelativeSource={RelativeSource Self}, Mode=OneWay}" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <!-- Остальные столбцы -->
+                                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                    <GridViewColumn Header="Nickname" DisplayMemberBinding="{Binding Nickname}" />
+                                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn Header="Surname" DisplayMemberBinding="{Binding Surname}" />
+                                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" />
+                                    <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}" />
+                                    <GridViewColumn Header="Role" DisplayMemberBinding="{Binding Role}" />
+
+                                    <!-- Столбец с кнопкой -->
+                                    <GridViewColumn>
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Grid.Row="1" Grid.Column="5" Content="Изменить роль"
+                                                        Command="{Binding DataContext.ChangeClientRole, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListView}}}"
+                                                        CommandParameter="{Binding ElementName=ClientsListView, Path=SelectedItem}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+
+
+                    </Grid>
+                    <Grid Grid.Row="1" Visibility="{Binding PassengersMenuVisibility}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Введите номер рейса" VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding FlightNumber}" Width="50" Height="25" Margin="20,0,0,0"/>
+                            <Button Content="Найти пассажиров" Margin="20,0,0,0"
+                                    Command="{Binding FindPassengers}"
+                                    Height="25"/>
+                        </StackPanel>
+                        <ScrollViewer Grid.Row="1">
+                            <ListView ItemsSource="{Binding Passengers}">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
+                                        <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding FirstName}" />
+                                        <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding LastName}" />
+                                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" />
+                                        <GridViewColumn Header="Birth Date" DisplayMemberBinding="{Binding BirthDate}" />
+                                        <GridViewColumn Header="Flight Id" DisplayMemberBinding="{Binding FlightId}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+        </Grid>
+
+
+        </Grid>
+        <!-- Футер страницы -->
+        <local:Footer Grid.Row="1"/>
+
+    </Grid>
+</Page>

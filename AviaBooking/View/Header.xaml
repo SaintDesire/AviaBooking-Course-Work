@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="AviaBooking.Header"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AviaBooking" xmlns:viewmodels="clr-namespace:AviaBooking.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="1280">
+    <UserControl.DataContext>
+        <viewmodels:HeaderViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <!--Выпадающее меню-->
+        <Style x:Key="MenuPopupStyle" TargetType="Popup">
+            <Setter Property="Placement" Value="Bottom"/>
+            <Setter Property="IsOpen" Value="False"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="MaxWidth" Value="300"/>
+            <Setter Property="MaxHeight" Value="200"/>
+            <Setter Property="StaysOpen" Value="False"/>
+            <Setter Property="PopupAnimation" Value="Fade"/>
+            <Setter Property="AllowsTransparency" Value="True"/>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid Height="100" Background="#128277">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <!-- Логотип -->
+                <ColumnDefinition Width="*"/>
+                <!-- Три кнопки -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Кнопка личного кабинета -->
+                <ColumnDefinition Width="Auto"/>
+                <!-- Кнопка меню -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Логотип -->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Height="100" Margin="25"
+                       VerticalAlignment="Center" 
+                       Source="../Images/AppPictures/logo.png"/>
+                <TextBlock Grid.Column="1" Text="AviaBooking" 
+                           VerticalAlignment="Center" 
+                           FontSize="25" FontFamily="Segoe UI Semibold"
+                           Foreground="#FFFF"/>
+            </Grid>
+            <!-- Три кнопки -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="Главная" Margin="100,0,75,0" Command="{Binding MainPageClick}" Style="{StaticResource TransparentButton}" />
+                <Button Content="Выбор билетов" Margin="0,0,75,0" Command="{Binding TicketsPageClick}" Style="{StaticResource TransparentButton}"/>
+                <Button Content="Отзывы" Command="{Binding ReviewsPageClick}" Style="{StaticResource TransparentButton}"/>
+            </StackPanel>
+
+            <!-- Кнопка личного кабинета -->
+            <Button Grid.Column="2" Height="35" Margin="0,0,40,0" Command="{Binding AccountPageClick}" Background="Transparent" BorderThickness="0">
+                <Image Source="../Images/AppPictures/accountButton.png"/>
+            </Button>
+
+
+
+        </Grid>
+
+    </Grid>
+</UserControl>
